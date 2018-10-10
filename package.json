@@ -1,0 +1,11 @@
+{
+  "name": "blocipedia",
+  "version": "1.0.0",
+  "description": "A wikipedia-like application for users to create wikis",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "set NODE_ENV=test && jasmine"
+  },
+  "author": "Steven Thomson",
+  "license": "ISC"
+}
