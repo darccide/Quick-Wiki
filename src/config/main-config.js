@@ -7,6 +7,8 @@ const flash = require("express-flash");
 const passportConfig = require("./passport-config");
 const logger = require("morgan");
 
+if (process.env.NODE_ENV !== 'production') {require('dotenv').config() }
+
 module.exports = {
   init(app, express) {
     app.set("views", viewsFolder);
