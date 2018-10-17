@@ -15,7 +15,21 @@ describe("routes : static", () => {
       });
 
     });
-    
+
+  });
+
+  describe("GET /wikis", () => {
+
+    it("shold render the wikis page", done => {
+
+      request.get(`${base}/wikis`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Public Wikis");
+        done();
+      });
+
+    });
+
   });
 
 });

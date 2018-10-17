@@ -18,4 +18,19 @@ module.exports = {
       return next();
     }
   },
-}
+  validateWikis(req, res, next) {
+    if (req.method === "POST") {
+      req.checkBody("title", "Must be between 2 and 20 characters")
+      .isLength({ min: 2, max: 20 });
+      req.checkBody("body", "Must be between 5 and 50 characters")
+      .isLength({ min: 5, max: 50 });
+    }
+    const errors = req.validationErrors();
+    if (errors) {
+      req.flash("error", errors);
+      return res.redirect(303, req.headers.referer);
+    } else {
+      return next();
+    }
+  }
+};
