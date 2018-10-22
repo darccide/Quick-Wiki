@@ -5,8 +5,8 @@ module.exports = class ApplicationPolicy {
         this.record = record;
     }
 
-    _isStandard() {
-        return this.user && this.user.role == "standard";
+    _isMember() {
+        return this.user && this.user.role == "member";
     }
 
     _isOwner() {
