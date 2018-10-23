@@ -5,17 +5,21 @@ module.exports = class ApplicationPolicy {
         this.record = record;
     }
 
-    _isMember() {
-        return this.user && this.user.role == "member";
+    _isStandard() {
+        return this.user && this.user.role == "standard";
     }
 
     _isOwner() {
         const userId = parseInt(this.user.id);
-        return this.record && (this.record.userId === this.user.id);
+        return this.record && (this.record.userId === userId);
+    }
+
+    _isPublic() {
+        return this.record.private === false;
     }
 
     _isAdmin() {
-        return this.user && this.user.role === 'admin';
+        return this.user && this.user.role === "admin";
     }
 
     new() {

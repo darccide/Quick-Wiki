@@ -16,13 +16,13 @@ module.exports = {
         })
         .then((user) => {
 
-          const msg = {
-            to: newUser.email,
-            from: "admin@Blocipedia.com",
-            subject: "Welcome to Blocipedia",
-            html:
-              '<strong>Welcome to Blocipedia</strong> <br> <a href="https://darccide-blocipedia.herokuapp.com/">Start your new Wikis today.</a>'
-          };
+            const msg = {
+                to: newUser.email,
+                from: "justin@justintylerelliott.com",
+                subject: 'Welcome to Blocipedia',
+                text: 'sample text',
+                html: '<strong>sample text</strong>',
+              };
 
             sgMail.send(msg);
 
@@ -33,3 +33,7 @@ module.exports = {
         })
     }
 };
+
+
+
+

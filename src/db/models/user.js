@@ -19,10 +19,12 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "member"
+      defaultValue: "standard"
     }
   }, {});
   User.associate = function(models) {
+    // associations can be defined here
+
     User.hasMany(models.Wiki, {
       foreignKey: "userId",
       as: "wikis"
