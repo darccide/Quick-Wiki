@@ -11,11 +11,11 @@ module.exports = class ApplicationPolicy {
 
     _isOwner() {
         const userId = parseInt(this.user.id);
-        return this.record && (this.record.userId === userId);
+        return this.record && (this.record.userId === this.user.id);
     }
 
     _isAdmin() {
-        return this.user && this.user.role === "admin";
+        return this.user && this.user.role === 'admin';
     }
 
     new() {
