@@ -1,24 +1,29 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Wikis', {
+    return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      username: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
-      body: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      private: {
-        type: Sequelize.BOOLEAN,
+      email: {
         allowNull: false,
-        defaultValue: false
+        unique: true,
+        validate: {
+          isEmail: { msg: "must be a valid email" }
+        },
+        type: Sequelize.STRING
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -27,20 +32,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      userId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
-        allowNull: false,
-        references: {
-          model: "Users",
-          key: "id",
-          as: "userId"
-        }
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Wikis');
+    return queryInterface.dropTable('Users');
   }
 };
