@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      //allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "standard"
+      defaultValue: "Standard"
     }
   }, {});
   User.associate = function(models) {
@@ -30,5 +30,18 @@ module.exports = (sequelize, DataTypes) => {
       as: "wikis"
     })
   };
+
+	User.prototype.isStandard = function() {
+		return this.role === "Standard";
+	};
+
+	User.prototype.isPremium = function() {
+		return this.role === "Premium";
+  };
+
+  User.prototype.isAdmin = function() {
+		return this.role === "Admin";
+  };
+
   return User;
 };

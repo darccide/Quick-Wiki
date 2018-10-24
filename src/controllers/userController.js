@@ -1,6 +1,9 @@
 const userQueries = require("../db/queries.users.js")
 const passport = require("passport");
 const User = require("../db/models").User;
+const publicKey = "pk_test_idoWZDzGdwgMnipUREkgHhja";
+const secretKey = process.env.SECRET_STRIPE_API_KEY;
+var stripe = require("stripe")(secretKey);
 
 module.exports = {
     signUp(req, res, next){
@@ -34,11 +37,9 @@ module.exports = {
     signIn(req, res, next) {
 ;        passport.authenticate("local")(req, res, function() {
             if(!req.user){
-                console.log("error")
                 req.flash("notice", "Sign in failed. Please try again.")
                 res.redirect("/users/sign_in");
             } else {
-                console.log("success");
                 req.flash("notice", "You've successfully signed in!");
                 res.redirect("/");
             }
@@ -50,16 +51,66 @@ module.exports = {
         req.flash("notice", "You've successfully signed out!");
         res.redirect("/");
     },
-    
-    show(req, res, next){
 
+    show(req, res, next){
         userQueries.getUser(req.params.id, (err, result) => {
             if(err || result.user === undefined){
+                console.log(err);
                 req.flash("notice", "No user found with that ID.");
                 res.redirect("/");
             } else {
+             console.log("Showing users page...");
              res.render("users/show", {...result});
             }
         });
+    },
+
+    upgradeForm(req, res, next) {
+		    res.render("users/upgrade", { publicKey });
+    },
+
+    upgrade(req, res, next) {
+        const email = req.body.stripeEmail;
+        const token = req.body.stripeToken;
+        stripe.customers.create({
+            email: email,
+            source: token
+        })
+        .then((customer) => {
+            console.log("customer: " + customer);
+            let customerCharge = stripe.charges.create({
+                amount: 1500,
+                description:  "Premium Membership Fee",
+                currency: "usd",
+                customer: customer.id
+            });
+            return customerCharge;
+        })
+        .then((charge) => {
+            console.log("charge");
+            console.log(charge);
+            if (charge) {
+                let action = "upgrade";
+                userQueries.updateUserRole(req.user, action);
+                req.flash("notice", "Upgrade successful!");
+                res.redirect("/");
+              } else {
+                console.log("error");
+                req.flash("notice", "Error upgrading, please try again");
+                res.redirect(`users/${req.user.id}`);
+              }
+        });
+    },
+
+    downgradeForm(req, res, next) {
+		    res.render("users/downgrade", { publicKey });
+    },
+
+    downgrade(req, res, next) {
+
+        let action = "downgrade";
+        userQueries.updateUserRole(req.user, action);
+        req.flash("notice", "Downgrade successful!");
+        res.redirect(req.get('referer'));
     }
 }
