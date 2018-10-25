@@ -4,9 +4,13 @@
         <% include ../static/partials/head.ejs %>
     </head>
     <body>
+
         <% include ../static/partials/navbar.ejs %>
+
         <main class="container">
+
             <% include ../static/partials/messages.ejs %>
+
             <h1>Public Wikis</h1>
 
             <% if(currentUser) { %>
@@ -14,9 +18,18 @@
             <% } %>
             <ul class="list-group">
                 <% wikis.forEach((wiki) => { %>
-                    <li class="list-group-item">
-                        <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
-                    </li>
+                    <% if(!currentUser || currentUser && currentUser.role === "Standard") { %>
+                        <% if(wiki.private === false) {%>
+                            <li class="list-group-item">
+                                <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                    <% if(currentUser && currentUser.role === "admin" || currentUser && currentUser.role === "premium") { %>
+                        <li class="list-group-item">
+                            <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+                        </li>
+                    <% } %>
                 <% }) %>
             </ul>
 

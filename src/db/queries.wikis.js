@@ -5,7 +5,6 @@ const Authorizer = require("../policies/wiki");
 module.exports = {
 
     getAllWikis(callback){
-        console.log("getAllWikis called");
         return Wiki.all()
         .then((wikis) => {
             callback(null, wikis);
@@ -16,7 +15,6 @@ module.exports = {
     },
 
     getWiki(id, callback){
-
         return Wiki.findById(id)
         .then((wiki) => {
             callback(null, wiki);
@@ -27,7 +25,6 @@ module.exports = {
     },
 
     addWiki(newWiki, callback){
-        
         return Wiki.create({
             title: newWiki.title,
             body: newWiki.body,
@@ -52,7 +49,7 @@ module.exports = {
             const authorized = new Authorizer(req.user, wiki).update();
 
             if(authorized) {
-   
+
                 wiki.update(updatedWiki, {
                     fields: Object.keys(updatedWiki)
                 })
@@ -89,5 +86,18 @@ module.exports = {
         .catch((err) => {
             callback(err);
         });
+    },
+
+    publicizeWikis(id) {
+      Wiki.findAll({
+        where: { userId: id }
+      })
+      .then(wikis => {
+        wikis.forEach(wiki => {
+          wiki.update({
+            private: false
+          })
+        })
+      })
     }
-}
+};

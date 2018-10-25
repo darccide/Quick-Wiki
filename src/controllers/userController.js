@@ -1,4 +1,5 @@
-const userQueries = require("../db/queries.users.js")
+const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const User = require("../db/models").User;
 const publicKey = "pk_test_idoWZDzGdwgMnipUREkgHhja";
@@ -23,7 +24,7 @@ module.exports = {
                 res.redirect("/users/sign_up");
             } else {
                 passport.authenticate("local")(req, res, () => {
-                    req.flash("notice", "You've successfully signed in!");
+                    req.flash("notice", "You've successfully signed up for Blocipedia!");
                     res.redirect("/");
                 })
             }
@@ -55,12 +56,10 @@ module.exports = {
     show(req, res, next){
         userQueries.getUser(req.params.id, (err, result) => {
             if(err || result.user === undefined){
-                console.log(err);
                 req.flash("notice", "No user found with that ID.");
                 res.redirect("/");
             } else {
-             console.log("Showing users page...");
-             res.render("users/show", {...result});
+                res.render("users/show", {...result});
             }
         });
     },
@@ -77,7 +76,6 @@ module.exports = {
             source: token
         })
         .then((customer) => {
-            console.log("customer: " + customer);
             let customerCharge = stripe.charges.create({
                 amount: 1500,
                 description:  "Premium Membership Fee",
@@ -110,6 +108,7 @@ module.exports = {
 
         let action = "downgrade";
         userQueries.updateUserRole(req.user, action);
+        wikiQueries.publicizeWikis(req.user.id);
         req.flash("notice", "Downgrade successful!");
         res.redirect(req.get('referer'));
     }

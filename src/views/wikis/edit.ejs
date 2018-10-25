@@ -7,7 +7,7 @@
         <% include ../static/partials/navbar.ejs %>
         <main class="container">
             <% include ../static/partials/messages.ejs %>
-            
+
             <h1>Edit Wiki</h1>
 
             <form action="/wikis/<%= wiki.id %>/update" method="post">
@@ -18,8 +18,19 @@
             <div class="form-group">
                 <label for="body">Body</label>
                 <textarea rows="4" class="form-control" name="body" placeholder="Enter Wiki Body"><%= wiki.body %></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            <% if(currentUser.role === "Admin" || currentUser.role === "Premium") { %>
+                <p>Change to Public/Private?</p>
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="private" value=false autocomplete="on" checked> Public
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="private" value=true autocomplete="off"> Private
+                    </label>
+                  </div>
+               <% } %>
+              <button type="submit" class="btn btn-primary">Update</button>
             </form>
 
         </main>
