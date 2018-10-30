@@ -1,28 +1,43 @@
 module.exports = {
-  fakeIt(app) {
-    let username, id, email;
-    funtion middleware(res, res, next) {
+
+// #1
+  fakeIt(app){
+// #2
+    let username, id, email, role, private;
+
+// #3
+    function middleware(req,res,next){
+
+// #4
       username = req.body.username || username;
       id = req.body.userId || id;
       email = req.body.email || email;
-      if (id && id != 0) {
+      role = req.body.role || role;
+      private = req.body.private || private
+
+// #5
+      if(id && id != 0){
         req.user = {
           "id": id,
           "email": email,
-          "username": username
+          "username": username,
+          "role": role,
+          "private": private
         };
-      } else if (id == 0) {
+      } else if(id == 0) {
         delete req.user;
       }
 
-      if (next) {
-        next();
-      }
+      if( next ){ next() }
     }
-    function route(res, res) {
-      res.redirect("/");
+
+// #6
+    function route(req,res){
+      res.redirect("/")
     }
-    app.use(middleware);
-    app.get("/auth/fake", route);
+
+// #7
+    app.use(middleware)
+    app.get("/auth/fake", route)
   }
 }

@@ -22,11 +22,11 @@ module.exports = class wikiPolicy extends ApplicationPolicy {
         return this.update();
     }
 
-    privatize() {
+    private() {
         return this._isPremium() || this._isAdmin();
     }
 
-    publicize() {
-        return this.privatize();
+    public() {
+        return this.private();
     }
 }
