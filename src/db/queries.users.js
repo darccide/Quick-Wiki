@@ -20,8 +20,8 @@ module.exports = {
         to: newUser.email,
         from: 'admin@blocipedia.com',
         subject: "You've signed up with Blocipedia!",
-        text: "Log in and start collaborating on wikis!",
-        html: '<strong>Log in and start creating on wikis!</strong>'
+        text: "Log in and start creating wikis!",
+        html: '<strong>Log in and start creating wikis!</strong>'
       };
       sgMail.send(msg);
       callback(null, user);
@@ -49,6 +49,16 @@ module.exports = {
         })
       }
     })
+  },
+
+  getAllUsers(callback) {
+    return User.all()
+    .then(users => {
+      callback(null, users);
+    })
+    .catch(err => {
+      callback(err);
+    });
   },
 
   toggleRole(user, action) {

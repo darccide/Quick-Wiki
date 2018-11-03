@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+<body>
+
+  <% include ../static/partials/navbar.ejs %>
+
+  <div class="container">
+    <h1>Collaborations</h1>
+    <h3>Edit <%= wiki.title %></h3>
+    <p>Remove collaborators on:  <%= wiki.title %></p>
+
+    <% include ../static/partials/messages.ejs %>
+
+    <div class="collaboration-list">
+      <form method="POST" action="remove" class="text-center">
+        <table class="table-striped">
+          <thead>
+            <tr class="text-center">
+              <th>Username</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% collaborators.forEach(collaborator => { %>
+            <tr>
+              <td><%= collaborator.User.username %></td>
+              <td><input type="radio" name="id" value="<%= collaborator.id %>"></td>
+            </tr>
+          <% }) %>
+         </tbody>
+       </table>
+       <input type="submit" value="Remove User" class="btn btn-warning">
+     </form>
+   </div>
+ </div>
+
+ <% include ../static/partials/baseScripts.ejs %>
+
+</body>

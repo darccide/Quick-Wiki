@@ -20,7 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "dotenv": "^6.1.0",
-    "ejs": "^2.5.7",
+    "ejs": "^2.6.1",
     "ejs-lint": "^0.3.0",
     "express": "^4.16.2",
     "express-flash": "0.0.2",
