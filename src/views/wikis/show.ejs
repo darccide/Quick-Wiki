@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+    <body>
+
+        <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+        <% include ../static/partials/messages.ejs %>
+
+        <h1><%- wiki.title %></h1>
+
+        <p><%- wiki.body %></p>
+        <div class="user-edit">
+				  <a class="user-link" href="/wikis/<%= wiki.id %>"></a>
+					  <% if (currentUser) { %>
+						  <% if (wiki.private) { %>
+								<% if (currentUser.role != "standard") { %>
+									<div class="btn-group" role="group" aria-label="non-standard-user-group-1">
+										<a href='/wikis/<%= wiki.id %>/edit' class="btn btn-primary">Edit Wiki</a>
+									</div>
+									<div class="btn-group" role="group" aria-label="non-standard-user-group-2">
+									  <form action='/wikis/<%= wiki.id %>/destroy' method="POST">
+										 	<button type="submit"class="btn btn-danger">Delete Wiki</button>
+										</form>
+									</div>
+									<div class="btn-group" role="group" aria-label="non-standard-user-group-3">
+										<a href="/wikis/<%= wiki.id %>/collaborators" class="btn btn-secondary">Add Collaborator</a>
+								</div>
+								<div class="btn-group" role="group" aria-label="non-standard-user-group-4">
+										<a href="/wikis/<%= wiki.id %>/collaborators/edit" class="btn btn-warning">Remove Collaborator</a>
+									</div>
+										<% } else { %>
+  										<% collaborators.forEach(collaborator => { %>
+                        <% if (collaborator.userId == currentUser.userId) { %>
+												  <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-primary">Edit Wiki</a>
+													  <% } %>
+												  <% }) %>
+											 <% } %>
+										<% } else { %>
+											<div class="btn-group" role="group" aria-label="user-group-1">
+												<a href="/wikis/<%= wiki.id %>/edit" class="btn btn-primary">Edit Wiki</a>
+										</div>
+												<% if (currentUser.role != "standard") { %>
+													<div class="btn-group" role="group" aria-label="user-group-1">
+														<form action="/wikis/<%= wiki.id %>/destroy" method="POST">
+															<button type="submit"class="btn btn-danger">Delete Wiki</button>
+														</form>
+													</div>
+												<% } %>
+											<% } %>
+										<% } else { %>
+											<div class="alert alert-info" role="alert">You need to sign in first to edit Wikis.</div>
+										<% } %>
+								</div>
+								<% if (wiki.private) { %>
+									<div class="contribution-list">
+										<table class="table-striped">
+											<thead>
+												<tr>
+													<th class>Wiki Contributors</th>
+												</tr>
+											</thead>
+											<tbody>
+                        <% collaborators.forEach(collaborator => { %>
+                          <tr>
+                            <td><%= collaborator.User.username %></td>
+                          </tr>
+                        <% }) %>
+											</tbody>
+										</table>
+									</div>
+								<% } %>
+						</div>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+    </body>
+</html>

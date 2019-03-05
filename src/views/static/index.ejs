@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ./partials/head.ejs %>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <% include ./partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ./partials/messages.ejs %>
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4">
+        <h1 class="display-3">Welcome Quicki-Wiki</h1>
+        <p class="lead">An application for community-sourced content</p>
+      </header>
+
+      <section class="row text-center">
+        <section class="col-lg-4">
+          <h4 class="card-title">Create Wikis</h4>
+          <p class="card-text">Create Wikis to share ideas and knowledge</p>
+          <% if(!currentUser) { %>
+          <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign Up</a>
+          <% } %>
+        </section>
+
+        <section class="col-lg-4">
+          <h4 class="card-text">Collaborate</h4>
+          <p class="card-text">Collaborate with other users to improve Wikis</p>
+          <% if(currentUser) { %>
+          <a
+            href="/users/<%= currentUser.id %>/collaborations"
+            class="btn btn-primary btn-lg"
+            >See Collaborations</a
+          >
+          <% } %>
+        </section>
+
+        <section class="col-lg-4">
+          <h4 class="card-text">Create Private Wikis</h4>
+          <p class="card-text">
+            Become a Premium member to create and collaborate on private Wikis
+          </p>
+          <% if(currentUser && currentUser.role != "standard") { %>
+          <a href="/wikis/private" class="btn btn-primary btn-lg"
+            >See Private Wikis</a
+          >
+          <% } %> <% if(currentUser && currentUser.role == "standard") { %>
+          <a href="/users/<%= currentUser.id %>" class="btn btn-primary btn-lg"
+            >Upgrade to Premium</a
+          >
+          <% } %>
+        </section>
+      </section>
+    </main>
+
+    <% include ./partials/baseScripts.ejs %>
+  </body>
+</html>

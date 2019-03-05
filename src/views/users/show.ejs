@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+     <% include ../static/partials/navbar.ejs %>
+     <main class="container">
+       <% include ../static/partials/messages.ejs %>
+
+       <h1>Account options for <%= currentUser.username %></h1>
+
+       <h3>Your account status is: <%= currentUser.role %></h3>
+
+       <% if(currentUser.role === "standard") { %>
+               <a href="/users/<%= currentUser.id %>/upgrade" class="btn btn-warning">Upgrade to premium account</a>
+               <p>With a premium account you can edit public wikis, create and read private wikis.</p>
+             <% } else { %>
+               <a href="/users/<%= currentUser.id %>/downgrade" class="btn btn-warning">Downgrade to standard account</a>
+               <p>With a standard account you will no longer be able to edit public wikis, read, or create private wikis.</p>
+      <% } %>
+
+     </main>
+     <% include ../static/partials/baseScripts.ejs %>
+   </body>
+</html>
