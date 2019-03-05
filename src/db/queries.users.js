@@ -1,9 +1,6 @@
 const User = require('./models').User;
 const bcrypt = require('bcryptjs');
-const sgMail = require('@sendgrid/mail');
 const Collaborator = require('./models').Collaborator;
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
   createUser(newUser, callback) {
@@ -16,21 +13,12 @@ module.exports = {
       password: hashedPassword
     })
       .then(user => {
-        const msg = {
-          to: newUser.email,
-          from: 'admin@quiki-wiki.com',
-          subject: "You've signed up with Quicki-Wiki!",
-          text: 'Log in and start creating wikis!',
-          html: '<strong>Log in and start creating wikis!</strong>'
-        };
-        sgMail.send(msg);
         callback(null, user);
       })
       .catch(err => {
         callback(err);
       });
   },
-
   getUser(id, callback) {
     let result = {};
     User.findById(id).then(user => {

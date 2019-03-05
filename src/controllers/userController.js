@@ -2,6 +2,7 @@ const userQueries = require('../db/queries.users.js');
 const wikiQueries = require('../db/queries.wikis.js');
 const passport = require('passport');
 const User = require('../db/models').User;
+const sgMail = require('@sendgrid/mail');
 
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
@@ -11,24 +12,32 @@ module.exports = {
   },
 
   create(req, res, next) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     let newUser = {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       passwordConfirmation: req.body.passwordConfirmation
     };
-
+    const msg = {
+      to: newUser.email,
+      from: 'admin@quiki-wiki.com',
+      subject: "You've signed up with Quicki-Wiki!",
+      html:
+        '<h1>Log in and start creating wikis!</h1> <br> <a href="https://quicki-wiki.herokuapp.com/">Visit us and start creating and exploring.</a>'
+    };
     userQueries.createUser(newUser, (err, user) => {
       if (err) {
         req.flash('notice', 'Email or username already exists');
         res.redirect('/users/sign_up');
       } else {
         passport.authenticate('local')(req, res, () => {
+          sgMail.send(msg);
           req.flash(
             'notice',
             `You've successfully signed up, a confirmation email has been sent!`
           );
-          res.redirect('/');
+          res.redirect('/wikis');
         });
       }
     });
