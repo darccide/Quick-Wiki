@@ -15,7 +15,7 @@ Quicki-Wiki was a project that was part of my Bloc Mentorship Program curriculum
 
 ## Live Demo
 
-![Quicki-Wiki live site link](https://quicki-wiki.herokuapp.com/)
+[Quicki-Wiki live site link](https://quicki-wiki.herokuapp.com/)
 
 **Free user login:**
 
@@ -68,7 +68,7 @@ sequelize db:seed:all
 ```
 npm start
 ```
-Your app should now be running on localhost:3000.
+Your app should now be running on [localhost:3000].
 
 ### Deploying to Heroku
 For Heroku, head over to Heroku and log in (or open an account if you don’t have one).
