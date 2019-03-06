@@ -21,6 +21,8 @@ Quicki-Wiki was a project that was part of my Bloc Mentorship Program curriculum
 
 Email: **testuser@email.com** Password: **testuser**
 
+
+
 ## Setup
 ### Running Locally
 Make sure you have [Node.js](https://nodejs.org/en/), [PostgreSQL](https://www.postgresql.org/), and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
@@ -38,7 +40,7 @@ Check that `src/db/config/config.json` is setup like below (You may need to chan
 	"development": {
 		"username": "postgres",
 		"password": null,
-		"database": "blocipedia-dev",
+		"database": "quicki-wiki-dev",
 		"host": "127.0.0.1",
 		"dialect": "postgres",
 		"logging": false,
@@ -74,6 +76,8 @@ Your app should now be running on [localhost:3000].
 For Heroku, head over to Heroku and log in (or open an account if you don’t have one).
 
 Create a new app and give it a name
+
+![Click New App](https://i.imgur.com/rMf24FI.jpg)
 
 Click the **Deploy** tab and there you will find instructions how to deploy the app
 
