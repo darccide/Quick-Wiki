@@ -1,6 +1,8 @@
 # Quicki-Wiki
 Quicki-Wiki is a fully-functioning site to allow public and private user-created wiki content. It was built as back-end project to utilize full RESTful API architecture primarily by using Node.js and Express. It is built with usability in mind and a minimal design to showcase bootstrap (which was used for styling).
 
+![Quicki-Wiki Home Screenshot](https://i.imgur.com/mQKwlij.jpg)
+
 ## About
 Quicki-Wiki was a project that was part of my Bloc Mentorship Program curriculum. We were tasked with building a functioning wiki site using the Agile process and with only user stories given to us.
 
