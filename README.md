@@ -17,7 +17,69 @@ Quicki-Wiki was a project that was part of my Bloc Mentorship Program curriculum
 
 [Quicki-Wiki live site link](https://quicki-wiki.herokuapp.com/)
 
-Free user login:
+Free user login: testuser@email.com
+
+Email: user@email.com Password: testuser
+
+## Setup
+### Running Locally
+Make sure you have Node.js, PostgreSQL, and the Heroku CLI installed.
+
+Download and install dependencies. If you are unsure just check the package.json.
 ```
-Email: user@email.com Password: password
+git clone git@github.com:darccide/Quicki-Wiki # or clone your own fork
+cd wiki-what
+npm install
 ```
+
+Check that `src/db/config/config.json` is setup like below (You may need to change your "username" and "password" depending upon your local setup) and make sure that Postgres is running:
+```
+{
+	"development": {
+		"username": "postgres",
+		"password": null,
+		"database": "blocipedia-dev",
+		"host": "127.0.0.1",
+		"dialect": "postgres",
+		"logging": false,
+		"operatorsAliases": false
+	},
+	"test": {
+		...
+	},
+	"production": {
+		...
+	}
+}
+```
+### Init and seed database :
+```
+sequelize db:migrate
+
+sequelize db:seed:all
+```
+### Run the project :
+```
+npm start
+```
+Your app should now be running on localhost:3000.
+
+### Deploying to Heroku
+heroku create
+git push heroku master
+heroku open
+Built With
+Node
+Express 4
+PostgreSQL
+Passport
+Stripe
+EJS
+Jasmine
+Heroku
+
+## Author
+Steven Thomson is a Fullstack Developer who currently resides in South Korea, but is transistioning back to the U.S. If you would like to contact him:
+
+ * steven.thomson88@gmail.com
+ * [Steven Thomson's LinkedIn](https://www.linkedin.com/in/steventhomson1988/)
