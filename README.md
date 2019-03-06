@@ -15,7 +15,7 @@ Quicki-Wiki was a project that was part of my Bloc Mentorship Program curriculum
 
 ## Live Demo
 
-[Quicki-Wiki live site link](https://quicki-wiki.herokuapp.com/)
+![Quicki-Wiki live site link](https://quicki-wiki.herokuapp.com/)
 
 **Free user login:**
 
@@ -68,7 +68,7 @@ sequelize db:seed:all
 ```
 npm start
 ```
-Your app should now be running on [localhost:3000].
+Your app should now be running on localhost:3000.
 
 ### Deploying to Heroku
 For Heroku, head over to Heroku and log in (or open an account if you don’t have one).
@@ -102,11 +102,11 @@ Check that `src/db/config/config.json` is setup like below (make sure the "diale
 #### Set up Postres on Heroku
 Click the **Resources** tab and you will see a search field for "add-ons". Click inside of the field and type "Heroku Postgres". Once it appears you can click it.
 
-[After clicking Resources Tab](https://i.imgur.com/Ex5hJii.jpg)
+![After clicking Resources Tab](https://i.imgur.com/Ex5hJii.jpg)
 
 After clicking **Heroku Postgres** you will have a modal appear on your screen telling you about the add-on provision you selected. Click the provision button and now **Heroku Postgres** has been added to you application.
 
-[After selecting Heroku Postgres](https://i.imgur.com/mIFzr8S.jpg)
+![After selecting Heroku Postgres](https://i.imgur.com/mIFzr8S.jpg)
 
 Now you will need to migrate and seed all your data to Heroku
 
@@ -119,7 +119,7 @@ heroku run sequelize db:seed:all
 #### Set up Environment Variables
 Click the **Settings** tab and you will see a button that says "real config vars". You will need to click that and add the following values.
 
-[Your Real Config Vars](https://i.imgur.com/Omie2Jn.jpg)
+![Your Real Config Vars](https://i.imgur.com/Omie2Jn.jpg)
 
 **Note:** The only value that should match what you see on the screen is the `NODE_ENV` value of `production`. This lets Heroku know to execute code related to production so that way your deployment will work properly after being built. All other values should be your own values and the `DATABASE_URL` should be provided by Heroku after setting up **Heroku Postgres**.
 
@@ -140,5 +140,5 @@ Once you have done all of this your version should be deployed an work properly.
 ## Author
 Steven Thomson is a Fullstack Developer who currently resides in South Korea, but is transistioning back to the U.S. If you would like to contact him:
 
- * [steven.thomson88@gmail.com]
+ * steven.thomson88@gmail.com
  * [Steven Thomson's LinkedIn](https://www.linkedin.com/in/steventhomson1988/)
